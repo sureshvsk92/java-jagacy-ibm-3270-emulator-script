@@ -41,8 +41,8 @@ public class TerminalEmulator  {
 		stringBuffer.append("host=" + this.host + "\n");
 		stringBuffer.append("port=" + this.port + "\n");
 		stringBuffer.append("ssl=" + (this.ssl == true ? "true" : "false" ) + "\n");
-		stringBuffer.append("window=" + (this.window == true ? "true" : "false" ) + "\n");
 		stringBuffer.append("showcert=false\n");
+		stringBuffer.append("window=" + (this.window == true ? "true" : "false" ) + "\n");
 
 		// write properties to file ...
 		BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(PROPERTIES_FILENAME)));

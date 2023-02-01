@@ -72,8 +72,8 @@ public class TerminalEmulator  {
 		this.session3270.open();
 		
 
-		System.out.println(Arrays.toString(this.session3270.readScreen()));
-//		waitForChange(10,5);
+//		System.out.println(Arrays.toString(this.session3270.readScreen()));
+		waitForChange(10,5);
 		this.session3270.writeKey(Key.ENTER);		
 		
 		// Close connection ...

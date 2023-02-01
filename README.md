@@ -86,3 +86,9 @@ C:\..\java-jagacy-ibm-3270-emulator-script> java -jar .\target\java-jagacy-ibm-3
 
 * https://github.com/josemarsilva/eval-hercules-mvs-3.8-turnkey-4-system
 * https://github.com/upgundecha/jagacy-cucumber-bdd-example
+* https://www.youtube.com/watch?v=nFKK3W6E0i4
+* https://wotho.ethz.ch/tk4-/   (To install 11 MVS TURNKEY)
+* https://cryptoterm.com/index.php?option=com_content&view=section&layout=blog&id=15&Itemid=77&lang=en   (To install emulator)
+* Emulator swing3270.exe file is available in Project path to install swing emulator
+* Jagacy3270.pdf file is available in doc section
+* Installation guide to install 11 MVS TURNKEY is available in doc section

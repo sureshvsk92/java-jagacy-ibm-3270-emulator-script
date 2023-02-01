@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 
 import com.jagacy.Key;
@@ -14,44 +15,43 @@ import com.jagacy.util.JagacyProperties;
 public class TerminalEmulator  {
 	
 	// constants ...
-	private String PROPERTIES_FILENAME = new String("java-jagacy-ibm-3270-emulator-script.properties");
+	private String PROPERTIES_FILENAME = "java-jagacy-ibm-3270-emulator-script.properties";
 	
 	// properties	
 	private Session3270 session3270 = null;
-	private JagacyProperties props;
-	private String host = null;
-	private Integer port = null;
-	private boolean ssl = false;
-	private boolean window = false;
-	private String filename = null;
-	
+	private String host;
+	private Integer port;
+	private boolean ssl;
+	private boolean window;
+
 	/*
 	 * TerminalEmulator() - Constructor
 	 */
-	public TerminalEmulator(String host, Integer port, boolean ssl, boolean window, String filename) throws JagacyException, IOException, InterruptedException {
+	public TerminalEmulator(String host, Integer port, boolean ssl, boolean window) throws JagacyException, IOException, InterruptedException {
 		super();
 		this.host = host;
 		this.port = port;
 		this.ssl = ssl;
 		this.window = window;
-		this.filename = filename;
-		
+
 		// build properties ...
-		StringBuffer stringBuffer = new StringBuffer("");
-		stringBuffer.append("host=" + this.host + "\n");
-		stringBuffer.append("port=" + this.port + "\n");
-		stringBuffer.append("ssl=" + (this.ssl == true ? "true" : "false" ) + "\n");
-		stringBuffer.append("showcert=false\n");
-		stringBuffer.append("window=" + (this.window == true ? "true" : "false" ) + "\n");
+		StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append("host = ").append(this.host).append("\n");
+		stringBuffer.append("port = ").append(this.port).append("\n");
+		stringBuffer.append("ssl = ").append(this.ssl ? "true" : "false").append("\n");
+		stringBuffer.append("show-cert = false\n");
+		stringBuffer.append("window = ").append(this.window ? "true" : "false").append("\n");
 
 		// write properties to file ...
-		BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(PROPERTIES_FILENAME)));
+		BufferedWriter bwr = new BufferedWriter(new FileWriter(PROPERTIES_FILENAME));
 		bwr.write(stringBuffer.toString());
 		bwr.flush();
 		bwr.close();
-		
+
+		System.out.println(stringBuffer);
+
 		// read jagacy properties ...		
-		this.props = new JagacyProperties(PROPERTIES_FILENAME);
+		JagacyProperties props = new JagacyProperties(PROPERTIES_FILENAME);
 		
 		// open connection ...
 		open_connection();
@@ -72,7 +72,8 @@ public class TerminalEmulator  {
 		this.session3270.open();
 		
 
-		System.out.println(this.session3270.readScreen().toString());
+		System.out.println(Arrays.toString(this.session3270.readScreen()));
+//		waitForChange(10,5);
 		this.session3270.writeKey(Key.ENTER);		
 		
 		// Close connection ...
@@ -80,7 +81,24 @@ public class TerminalEmulator  {
 		
 		
 	}
-	
+
+	private boolean waitForChange(int timeout,
+								  int intermediateScreenCount) {
+		if (intermediateScreenCount < 0) {
+			throw new IllegalArgumentException(String.valueOf(intermediateScreenCount));
+		}
+// Add one for target screen:
+		intermediateScreenCount++;
+		boolean isSuccess = false;
+		while (intermediateScreenCount > 0) {
+			isSuccess = waitForChange(10,5);
+			if (isSuccess) {
+				break;
+			}
+		}
+		return isSuccess;
+	}
+
 	/*
 	 * 
 	 */

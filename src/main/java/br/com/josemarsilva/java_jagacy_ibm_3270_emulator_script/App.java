@@ -24,8 +24,9 @@ public class App
     	CLI cli = new CLI(args);
     	
     	// new IBM 3270 Emulator
-    	TerminalEmulator terminalEmulator = new TerminalEmulator("teague-tammvs1.tamu.edu", 992, true, true, "script");
-    	
+//    	TerminalEmulator terminalEmulator = new TerminalEmulator("teague-tammvs1.tamu.edu", 992, true, true, "script");
+    	TerminalEmulator terminalEmulator = new TerminalEmulator("localhost", 3270, false, false);
+
     	// Run Script
     }
 }

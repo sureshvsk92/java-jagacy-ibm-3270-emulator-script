@@ -1,1 +1,10 @@
 /target/
+.project
+.settings
+*.log
+.idea
+compiler.xml
+encodings.xml
+jarRepositories.xml
+misc.xml
+vcs.xml
